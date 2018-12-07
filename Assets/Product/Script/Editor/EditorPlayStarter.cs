@@ -22,16 +22,34 @@ namespace Product.Editor
 
         private static readonly Dictionary<string, Action> ReloadActionBySceneName = new Dictionary<string, Action>
         {
-            // ここにシーン名ごとのモックロード処理を書いてください
+            // ここにシーン名ごとのモックデータでのロード処理を書いてください
             {
                 "Home",
                 () =>
                 {
+                    // モックデータ
                     HomeSceneEntry.HofeInfo = new HomeInfo("プレイヤー名", "コメント", 99);
                     SceneManager.LoadSceneAsync("Home");
                 }
             },
         };
+
+        /// <summary>
+        /// アプリの初期化処理やロード処理を行います
+        /// </summary>
+        static void InitializeApp(Action loadMockDataScene)
+        {
+            InitData(); // データを初期化したりー
+            RequestLogin(loadMockDataScene); // ログイン処理を行ったりー
+        }
+
+        static void InitData()
+        {
+        }
+
+        static void RequestLogin(Action callback)
+        {
+        }
 
 #endregion
 
@@ -68,7 +86,7 @@ namespace Product.Editor
             string sceneName = EditorSceneManager.GetActiveScene().name;
             if (ReloadActionBySceneName.ContainsKey(sceneName))
             {
-                ReloadActionBySceneName[sceneName]();
+                InitializeApp(ReloadActionBySceneName[sceneName]);
             }
             else if (ApplicationEntryScenePath != EditorSceneManager.GetActiveScene().path)
             {
