@@ -28,7 +28,7 @@ namespace Product.Editor
                 () =>
                 {
                     // モックデータ
-                    HomeSceneEntry.HofeInfo = new HomeInfo("プレイヤー名", "コメント", 99);
+                    HomeSceneEntry.HofeInfo = new HomeInfo("プレイヤー名", "コメント", 99); // 今回は雑にstatic...
                     SceneManager.LoadSceneAsync("Home");
                 }
             },
@@ -74,6 +74,7 @@ namespace Product.Editor
         static void OnPrePlay()
         {
             string activeScenePath = EditorSceneManager.GetActiveScene().path;
+            // 一番最初のシーンの場合はモックロード使わないよー
             if (activeScenePath != ApplicationEntryScenePath)
             {
                 string sceneName = System.IO.Path.GetFileNameWithoutExtension(activeScenePath);

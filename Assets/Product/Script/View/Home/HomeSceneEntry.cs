@@ -10,7 +10,7 @@ namespace Product.View
 
         void Awake()
         {
-            Debug.Log("Awaking");
+            Debug.Log("ホーム情報を取得: " + HofeInfo.PlayerName);
         }
 
         void Start()
