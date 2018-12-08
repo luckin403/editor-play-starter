@@ -20,7 +20,7 @@ namespace Product.Editor
 
         static readonly string ApplicationEntryScenePath = EditorBuildSettings.scenes.First().path;
 
-        private static readonly Dictionary<string, Action> ReloadActionBySceneName = new Dictionary<string, Action>
+        static readonly Dictionary<string, Action> ReloadActionBySceneName = new Dictionary<string, Action>
         {
             // ここにシーン名ごとのモックデータでのロード処理を書いてください
             {
@@ -39,16 +39,19 @@ namespace Product.Editor
         /// </summary>
         static void InitializeApp(Action loadMockDataScene)
         {
-            InitData(); // データを初期化したりー
-            RequestLogin(loadMockDataScene); // ログイン処理を行ったりー
+            InitData();
+            RequestLogin(loadMockDataScene);
         }
 
         static void InitData()
         {
+            // データを初期化したりー
         }
 
         static void RequestLogin(Action callback)
         {
+            // ログイン処理を行ったりー
+            callback();
         }
 
 #endregion
@@ -76,7 +79,7 @@ namespace Product.Editor
                 string sceneName = System.IO.Path.GetFileNameWithoutExtension(activeScenePath);
                 if (ReloadActionBySceneName.ContainsKey(sceneName))
                 {
-                    EditorPrefs.SetBool("MockReloadMode", true);
+                    EditorPrefs.SetBool("MockLoadMode", true);
                 }
             }
         }
@@ -86,6 +89,7 @@ namespace Product.Editor
             string sceneName = EditorSceneManager.GetActiveScene().name;
             if (ReloadActionBySceneName.ContainsKey(sceneName))
             {
+                EditorPrefs.SetBool("MockLoadMode", false);
                 InitializeApp(ReloadActionBySceneName[sceneName]);
             }
             else if (ApplicationEntryScenePath != EditorSceneManager.GetActiveScene().path)

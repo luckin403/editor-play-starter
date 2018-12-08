@@ -6,10 +6,9 @@ namespace Product
     {
         void OnValidate()
         {
-            if (Application.isPlaying && UnityEditor.EditorPrefs.GetBool("MockReloadMode"))
+            if (Application.isPlaying && UnityEditor.EditorPrefs.GetBool("MockLoadMode"))
             {
                 gameObject.SetActive(false);
-                UnityEditor.EditorPrefs.SetBool("MockReloadMode", false);
             }
         }
     }
